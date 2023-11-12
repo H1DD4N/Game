@@ -8,6 +8,10 @@ public class Player : MonoBehaviour
 
     public Text Win;
     public Text Score;
+    public GameObject PPlayerModel;
+    public GameObject Boden;
+    public GameObject WinPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +31,9 @@ public class Player : MonoBehaviour
             Win.gameObject.SetActive(true);
             Time.timeScale = 0;
             Score.gameObject.SetActive(true);
+            WinPosition.gameObject.SetActive(false);
+            Boden.gameObject.SetActive(false);
+            PPlayerModel.gameObject.SetActive(false);
 
         }
     }
