@@ -1,5 +1,7 @@
 using System.IO;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 namespace Game.ScoreBoards
 {
@@ -8,10 +10,12 @@ namespace Game.ScoreBoards
         [SerializeField] private int maxTimeBoardEntries = 5;
         [SerializeField] private Transform timeScoreHolderTransform = null;
         [SerializeField] private GameObject timeScoreEntryObject = null;
+        [SerializeField] private TMP_InputField entryNameInputField;
+       
 
-        [Header ("Test")]
         
-        [SerializeField] ScoreBoardEntryData testEntryData = new ScoreBoardEntryData();
+        
+        
 
         private string SavePath => $"{Application.persistentDataPath}/highscores.json";
 
@@ -27,7 +31,13 @@ namespace Game.ScoreBoards
         [ContextMenu("Add Test Entry")]
         public void AddTestEntry()
         {
-            AddEntry(testEntryData);
+            ScoreBoardEntryData entryData = new ScoreBoardEntryData
+            {
+                entryName = entryNameInputField.text,
+                entryTime = PlayerPrefs.GetFloat("CurrentTime")
+            };
+
+            AddEntry(entryData);
         }
 
         public void AddEntry(ScoreBoardEntryData scoreBoardEntryData)
@@ -38,7 +48,7 @@ namespace Game.ScoreBoards
 
             for (int i = 0; i < savedTimes.bestTime.Count; i++)
             {
-                if(scoreBoardEntryData.entryTime > savedTimes.bestTime[i].entryTime)
+                if(scoreBoardEntryData.entryTime < savedTimes.bestTime[i].entryTime)
                 {
                     savedTimes.bestTime.Insert(i, scoreBoardEntryData);
                     scoreAdded = true;
