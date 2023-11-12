@@ -9,10 +9,13 @@ public class Timer : MonoBehaviour
     public float currentTime;
     public int startMinutes;
     public Text currentTimeText;
+    public static string playerNameKey = "PlayerName";
     // Start is called before the first frame update
     void Start()
     {
-        currentTime = startMinutes * 60;   
+        currentTime = startMinutes * 60;
+
+       
     }
 
     // Update is called once per frame
@@ -29,10 +32,18 @@ public class Timer : MonoBehaviour
 
     }
 
-    public void SaveTime()
+    public float getCurrentTime()
     {
-        PlayerPrefs.SetFloat("Time", currentTime);
+        return currentTime;
     }
 
-  
+    void SaveTime()
+    {
+        float roundedTime = Mathf.Round(currentTime * 100) / 100;
+
+        // Speichern des gerundeten Werts in PlayerPrefs
+       
+        // Speichere die aktuelle Zeit in PlayerPrefs
+        PlayerPrefs.SetFloat("CurrentTime", roundedTime);
+    }
 }
